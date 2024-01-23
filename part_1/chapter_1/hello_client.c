@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-
-// 리눅스 & 맥에서 돌아간다. 클라이언트 기준
-
-void error_handling(char *message);
+#include "../socket_header.h"
 
 int main(int ac, char **av)
 {
@@ -41,12 +32,4 @@ int main(int ac, char **av)
 	printf("Message from server : %s \n", message);
 	close(sock);
 	return 0;
-}
-
-
-void error_handling(char *message)
-{
-	fputs(message, stderr);
-	fputc('\n', stderr);
-	exit(1);
 }
