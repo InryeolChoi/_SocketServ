@@ -1,13 +1,14 @@
-#include "../socket_header.h"
+#include "../../socket_header.h"
+#include "../../socket_header.c"
 
 int main(int ac, char **av)
 {
 	int serv_socket;
 	int clnt_socket;
 
-	struct sockaddr_in serv_addr;	// 
-	struct sockaddr_in clnt_addr;	// 
-	socklen_t clnt_addr_size;		//
+	struct sockaddr_in serv_addr;
+	struct sockaddr_in clnt_addr; 
+	socklen_t clnt_addr_size;
 
 	char message[] = "hello world";
 

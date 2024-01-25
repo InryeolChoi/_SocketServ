@@ -1,4 +1,5 @@
-#include "../socket_header.h"
+#include "../../socket_header.h"
+#include "../../socket_header.c"
 
 int main(int ac, char **av)
 {
