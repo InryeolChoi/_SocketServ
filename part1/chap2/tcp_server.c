@@ -18,21 +18,26 @@ int main(int ac, char **av)
 		exit(1);
 	}
 
+	// 소켓 생성 : socket()
 	serv_socket = socket(PF_INET, SOCK_STREAM, 0);
 	if (serv_socket == -1)
 		error_handling("Socket() error");
 
+	// 프로토콜 & ip주소 & 포트번호 지정
 	memset(&serv_addr, 0, sizeof(serv_addr));
-	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	serv_addr.sin_family = AF_INET;					// ipv4 기준
+	serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);	// host기준, long
 	serv_addr.sin_port = htons(atoi(av[1]));
 
+	// 주소와 포트번호 할당 : bind()
 	if (bind(serv_socket, (struct sockaddr*) &serv_addr, sizeof(serv_addr)) == -1)
 		error_handling("bind() error");
-	
+
+	// 연결요청 가능상태로 변경 : listen()
 	if (listen(serv_socket, 5) == -1)
 		error_handling("listen() error");
 
+	// 연결요청 수락
 	clnt_addr_size = sizeof(clnt_addr);
 	clnt_socket = accept(serv_socket, (struct sockaddr *) &clnt_addr, &clnt_addr_size);
 	if (clnt_socket == -1)
