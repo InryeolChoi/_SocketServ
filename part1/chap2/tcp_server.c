@@ -43,6 +43,8 @@ int main(int ac, char **av)
 	if (clnt_socket == -1)
 		error_handling("accept() error");
 	
+	// write()를 이용한다 == 소켓 역시 파일 디스크립터의 일종.
+	// clnt_socket에 message를 씀.
 	write(clnt_socket, message, sizeof(message));
 	close(clnt_socket);
 	close(serv_socket);

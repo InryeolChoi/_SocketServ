@@ -1,25 +1,10 @@
-# chap2
-## 구동방법
+# 단원
 
-```
-./hserver (포트번호)
-./hclient 127.0.0.1 (포트번호)
-```
-포트번호는 919x를 추천  
-ip주소 127.0.0.1은 루프백 주소라고 하며, 자기 자신을 의미
+* chap1은 chap2와 같이 서술함.
+* chap2 : [click](../part1/chap2/README.md)
+* chap3 : [click](../part1/chap3/README.md)
+* chap4 : [click](../part1/chap4/README.md)
+* chap5 : [click](../part1/chap5/README.md)
 
-## 정상적인 결과
-```
-message from server: hello world
-function read call count : 12
-```
-
-## 참고사항
-이 서버는 같은 포트에서 바로 재실행이 불가능하다.
-
-# chap3
-* 호스트 바이트 순서 : cpu마다 다름.
-* 네트워크 바이트 순서 : 빅 엔디언 방식
-* 언제 지켜주어야 하는가? sockaddr_in 구조체에 데이터를 채울 때.
-	* 해당 구조체에 넣을 때만 함수 사용.
-	* 이외에는 신경쓰지 않아도 된다. (자동으로 변환)
+* chap6은 UDP 서술 파트이고, 따라서 생략.  
+추후 개정 가능성 있음.

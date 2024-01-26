@@ -1,17 +1,31 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Wall
 
-all : make
+all: eserver eclient1 eclient2 eclient3 eclient4 eclient5
 
-re : all
+re: all
 
-make:
-	$(CC) $(CFLAGS) -o echo_server echo_server.c
-	$(CC) $(CFLAGS) -o echo_client echo_client.c
+eserver: echo_server.c
+	$(CC) $(CFLAGS) -o eserver echo_server.c
 
-clean :
-	rm -rf echo_server echo_client
+eclient1: echo_client.c
+	$(CC) $(CFLAGS) -o eclient1 echo_client.c
 
-fclean : clean
+eclient2: echo_client.c
+	$(CC) $(CFLAGS) -o eclient2 echo_client.c
 
-.PHONY : all clean
+eclient3: echo_client.c
+	$(CC) $(CFLAGS) -o eclient3 echo_client.c
+
+eclient4: echo_client.c
+	$(CC) $(CFLAGS) -o eclient4 echo_client.c
+
+eclient5: echo_client.c
+	$(CC) $(CFLAGS) -o eclient5 echo_client.c
+
+clean:
+	rm -rf eserver eclient1 eclient2 eclient3 eclient4 eclient5
+
+fclean: clean
+
+.PHONY: all clean
