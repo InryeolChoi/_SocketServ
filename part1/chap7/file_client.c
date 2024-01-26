@@ -1,6 +1,6 @@
 #include "../../socket_header.h"
 #include "../../socket_header.c"
-#define BUF_SIZE 30
+#define BUFF_SIZE 30
 
 int main(int ac, char **av)
 {
@@ -13,7 +13,7 @@ int main(int ac, char **av)
 	int sd;
 	FILE *fp;
 
-	char buf[BUF_SIZE];
+	char buf[BUFF_SIZE];
 	int read_cnt;
 	struct sockaddr_in serv_adr;
 
@@ -27,7 +27,7 @@ int main(int ac, char **av)
 
 	connect(sd, (struct sockaddr *)&serv_adr, sizeof (serv_adr));
 
-	while ((read_cnt = read(sd, buf, BUF_SIZE)) != 0)
+	while ((read_cnt = read(sd, buf, BUFF_SIZE)) != 0)
 		fwrite((void *)buf, 1, read_cnt, fp);
 
 	puts("Received file data");

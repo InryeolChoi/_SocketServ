@@ -1,6 +1,6 @@
 #include "../../socket_header.h"
 #include "../../socket_header.c"
-#define BUF_SIZE 30
+#define BUFF_SIZE 30
 
 int main(int ac, char **av)
 {
@@ -12,7 +12,7 @@ int main(int ac, char **av)
 
 	int serv_sd, clnt_sd;
 	FILE *fp;
-	char buf[BUF_SIZE];
+	char buf[BUFF_SIZE];
 	int read_cnt;
 
 	struct sockaddr_in serv_adr, clnt_adr;
@@ -37,11 +37,11 @@ int main(int ac, char **av)
 	while (1)
 	{
 		// 파일 데이터를 전송하기 위한 느낌.
-		read_cnt = fread((void *)buf, 1, BUF_SIZE, fp);
+		read_cnt = fread((void *)buf, 1, BUFF_SIZE, fp);
 
-		if (read_cnt >= BUF_SIZE)			// 계속 30씩 보내기
-			write(clnt_sd, buf, BUF_SIZE);
-		else if (read_cnt < BUF_SIZE)		// 다 읽고 남은 부분
+		if (read_cnt >= BUFF_SIZE)			// 계속 30씩 보내기
+			write(clnt_sd, buf, BUFF_SIZE);
+		else if (read_cnt < BUFF_SIZE)		// 다 읽고 남은 부분
 		{
 			write(clnt_sd, buf, read_cnt);
 			break ;
@@ -52,7 +52,7 @@ int main(int ac, char **av)
 	shutdown(clnt_sd, SHUT_WR);
 
 	// 출력 스트림만 닫은 상태, client로부터 입력은 받을 수 있음.
-	read(clnt_sd, buf, BUF_SIZE);
+	read(clnt_sd, buf, BUFF_SIZE);
 	printf("message from client : %s \n", buf);
 
 	// 파일과 소켓을 완전히 닫기.
