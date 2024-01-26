@@ -1,5 +1,8 @@
 #include "../../socket_header.h"
 #include "../../socket_header.c"
+#define OP_SIZE 4
+
+int calculate(int opnum, int opnds[], char op);
 
 int main(int ac, char **av)
 {
@@ -30,25 +33,30 @@ int main(int ac, char **av)
 	if (res == -1)
 		error_handling("bind() error");
 
+	// 연결요청 대기 : 5칸
 	res = listen(serv_sock, 5);
 	if (res == -1)
 		error_handling("listen() error");
 
 	clnt_adr_size = sizeof(clnt_adr);
 
-	// 
+	// 5개의 클라이언트 처리
 	for (int i = 0; i < 5; i++)
 	{
 		opnd_cnt = 0;
 		clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, &clnt_adr_size);
+		// 피연산자 갯수
 		read(clnt_sock, &opnd_cnt, 1);
 
 		recv_len = 0;
-		while (recv_len < (opnd_cnt * OPSZ + 1))
+		// 피연산자 갯수 -> char 단위로 변환
+		while (recv_len < (opnd_cnt * OP_SIZE + 1))
 		{
+			// 배열에 담고, 길이를 반환
 			recv_cnt = read(clnt_sock, &opinfo[recv_len], BUF_SIZE - 1);
 			recv_len += recv_cnt;
 		}
+		// 계산 후 전송
 		result = calculate(opnd_cnt, (int *)opinfo, opinfo[recv_len - 1]);
 		write(clnt_sock, (char *)&result, sizeof(result));
 		close(clnt_sock);
@@ -69,12 +77,12 @@ int calculate(int opnum, int opnds[], char op)
 
 	case '-':
 		for	(int i = 1; i < opnum; i++)
-			result += opnds[i];
+			result -= opnds[i];
 		break;
 
 	case '*':
 		for	(int i = 1; i < opnum; i++)
-			result += opnds[i];
+			result *= opnds[i];
 		break;
 	}
 	return result;

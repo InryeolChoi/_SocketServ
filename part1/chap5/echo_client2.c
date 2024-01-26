@@ -37,8 +37,10 @@ int main(int ac, char **av)
 		if (!strcmp(message, "q\n") || !strcmp(message, "Q\n"))
 			break ;
 		
-		// 변경구간 : read()가 데이터를 전부 받도록 수정.
+		str_len = write(sock, message, strlen(message));
 		recv_len = 0;
+
+		// 변경구간 : read()가 데이터를 전부 받도록 수정.
 		while (recv_len < str_len)
 		{
 			recv_cnt = read(sock, &message[recv_len], BUF_SIZE - 1);

@@ -8,11 +8,11 @@ echo:
 	$(CC) $(CFLAGS) -o echo_client2 echo_client2.c
 
 op:
-	$(CC) $(CFLAGS) -o op_server op_server.c
-	$(CC) $(CFLAGS) -o op_client op_client.c
+	$(CC) $(CFLAGS) -o opserver op_server.c
+	$(CC) $(CFLAGS) -o opclient op_client.c
 
 clean :
-	rm -rf echo_server2 echo_client2 op_server op_client
+	rm -rf echo_server2 echo_client2 opserver opclient
 
 fclean : clean
 
