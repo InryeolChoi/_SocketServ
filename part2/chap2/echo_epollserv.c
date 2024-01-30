@@ -31,8 +31,8 @@ int main(int ac, char **av)
 	if (res == -1)
 		error_handling("listen() error");
 
-	struct epoll_event *ep_events;
-	struct epoll_event *event;
+	struct epoll_event *ep_events;	//
+	struct epoll_event *event;		//
 	int epfd, event_cnt;
 
 	// epoll_create
@@ -41,7 +41,8 @@ int main(int ac, char **av)
 
 	event.events = EPOLLIN;
 	event.data.fd = serv_sock;
-	epoll_ctl(epfd, EPOLL_CTL_ADD, serv_sock, &event);
+	// epfd에 추가(CTL_ADD), serv_sock을, event를 통해 전달된 이벤트의 관찰이 목적
+	epoll_ctl(epfd, EPOLL_CTL_ADD, serv_sock, &event); 
 
 	while (1)
 	{
