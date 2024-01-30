@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"socket_header.h": "c"
+		"socket_header.h": "c",
+		"time.h": "c"
 	}
 }
