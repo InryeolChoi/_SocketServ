@@ -3,6 +3,8 @@
 		"socket_header.h": "c",
 		"time.h": "c",
 		"__tree": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"iostream": "cpp",
+		"ostream": "c"
 	}
 }
