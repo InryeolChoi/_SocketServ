@@ -85,7 +85,7 @@ int main(int ac, char **av)
 		if (new_events == -1)
             exit_with_perror("kevent() error\n" + string(strerror(errno)));
 		// change_list = event_list에 담을 이벤트의 종류 = 일종의 거름망.
-		// 이벤트를 기다리고 있다가, 발생한 이벤트가 change_list에 있으면, event_list에 담기게 된다.
+		// 이벤트를 기다리고 있다가, kq로 들어온(= 발생한) 이벤트가 change_list에 있으면, event_list에 담기게 된다.
 
 		// change_list를 초기화
         change_list.clear();
@@ -119,8 +119,8 @@ int main(int ac, char **av)
                     int clnt_sock;
                     if ((clnt_sock = accept(serv_sock, NULL, NULL)) == -1)
                         exit_with_perror("accept() error\n" + string(strerror(errno)));
-                    cout << "accept new client: " << clnt_sock << endl;
-                    fcntl(clnt_sock, F_SETFL, O_NONBLOCK);
+					cout << "accept new client: " << clnt_sock << endl;
+					fcntl(clnt_sock, F_SETFL, O_NONBLOCK);
 
 					// 클라이언트 소켓(clnt_sock)에 대한 읽기 이벤트(EVFILT_READ) / 쓰기 이벤트(EVFILT_WRITE)를 감시
                     change_events(change_list, clnt_sock, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);

@@ -36,8 +36,7 @@
 
 ## <part 2 : 멀티플랙싱>
 1. I/O 멀티플랙싱이란?
-2. 멀티캐스트와 브로드캐스트
-3. epoll() & kqueue()
-
-
-. 실제 HTTP 서버 제작하기
+2. epoll() 연습 - 리눅스에서 돌아감
+3. kqueue() 연습1 - 맥 및 freebsd
+4. kqueue() 연습2 - 맥 및 freebsd
+5. 실제 http 서버 제작
