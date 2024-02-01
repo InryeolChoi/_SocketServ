@@ -46,7 +46,7 @@ int main(int ac, char **av)
     server_addr.sin_port = htons(atoi(av[1]));
 
 	// bind()와 listen()
-    if (bind(serv_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1)
+    if (bind(serv_sock, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1)
         exit_with_perror("bind() error\n" + string(strerror(errno)));
     if (listen(serv_sock, 5) == -1)
         exit_with_perror("listen() error\n" + string(strerror(errno)));
