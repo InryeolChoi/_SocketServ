@@ -18,7 +18,7 @@ int init_serv_sock(char *port)
         exit(EXIT_FAILURE);
 	}
 
-	// 포트 및 ip설정
+	// 포트 및 ip설정 (지금은 단일포트)
 	struct sockaddr_in serv_adr;
 
 	memset(&serv_adr, 0, sizeof(serv_adr));
