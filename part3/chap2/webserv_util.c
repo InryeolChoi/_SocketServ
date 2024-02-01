@@ -21,7 +21,6 @@ void response_to(int clnt_sock)
 	char filename[1024];
 	char content[1024];
 
-	printf("11111111111\n");
 	strcpy(method, strtok(request_line, " /"));
 	strcpy(filename, strtok(NULL, " /"));
 	strcpy(content, get_content_name(filename));
