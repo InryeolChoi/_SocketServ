@@ -13,6 +13,7 @@
 
 #define MAX_EVENTS 10
 #define SMALL_BUF 100
+#define MAX_REQUEST_SIZE 1024
 
 void 	work_kqueue(int kq, int serv_sock);
 void 	catch_read_kqueue(int kq, int serv_sock);

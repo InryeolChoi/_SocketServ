@@ -11,6 +11,7 @@ make :
 
 clean:
 	rm -rf $(NAME)
+	rm -rf *.dSYM
 
 fclean: clean
 

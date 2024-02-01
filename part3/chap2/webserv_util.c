@@ -1,5 +1,4 @@
 #include "webserv.h"
-#define MAX_REQUEST_SIZE 1024
 
 void response_to(int clnt_sock)
 {
@@ -7,36 +6,35 @@ void response_to(int clnt_sock)
     FILE *clnt_file = fdopen(clnt_sock, "r");
     FILE *file_to_send = fdopen(dup(clnt_sock), "w");
 
-    if (clnt_file == NULL || file_to_send == NULL) {
-        perror("fdopen failed");
-        free(request_line);
+    if (clnt_file == NULL || file_to_send == NULL)
         return ;
-    }
 
-	fgets(request_line, 1024, clnt_file);	// 문제
-	printf("%s\n", request_line);
+	fgets(request_line, 1024, clnt_file);
+	printf("%s", request_line);
 
 	// 파싱 : 소켓 속 html 요청메시지
+	char tmpline[1024];
 	char method[1024];
 	char filename[1024];
 	char content[1024];
 
+	strcpy(tmpline, request_line);
 	strcpy(method, strtok(request_line, " /"));
 	strcpy(filename, strtok(NULL, " /"));
 	strcpy(content, get_content_name(filename));
 
-	// 검사 : 제대로 된 요청인가?
+	// 검사 : 제대로 된 요청인가? (검사파트 다시보기)
 	// 요청메시지가 http로 시작하는가? 메소드가 GET인가?
-	if (strstr(request_line, "HTTP/") == NULL || \
-		strcmp(method, "GET") != 0 || \
-		access(filename, F_OK) == -1)
+	if (strcmp(method, "GET") != 0 || \
+		access(filename, F_OK) == -1 || \
+		strstr(tmpline, "HTTP/") == NULL)
 	{
 		send_err(file_to_send);
 		fclose(file_to_send);
 		return ;
 	}
-	// 맞으면 보낸다.
 	send_data(file_to_send, content, filename);
+	close(clnt_sock);
 }
 
 void send_data(FILE *file_to_send, char *content, char *filename)
@@ -60,8 +58,8 @@ void send_data(FILE *file_to_send, char *content, char *filename)
 		fputs(buffer, file_to_send);
 		fflush(file_to_send);
 	}
-	fflush(file_to_send);
 	fclose(file_to_send);
+	fclose(html_file);
 }
 
 char *get_content_name(char *file)
@@ -77,5 +75,4 @@ char *get_content_name(char *file)
 		return "text/html";
 	else
 		return "text/plain";
-
 }
