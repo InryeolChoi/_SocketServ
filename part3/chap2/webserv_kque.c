@@ -69,9 +69,9 @@ void handle_clnt_response(int clnt_sock)
 	// 검사 : 제대로 된 요청인가?
 	// 요청메시지가 http로 시작하는가? 메소드가 GET인가?
 	if (strcmp(method, "GET") != 0 || access(filename, F_OK) == -1 || strstr(tmpline, "HTTP/") == NULL)
-		send_err(file_to_send);
+		response_err(file_to_send);
 	else
-		send_data(file_to_send, content, filename);
+		response_data(file_to_send, content, filename);
 
 	// 무조건 소켓을 닫아줘야 segfault 방지
 	fclose(file_to_send);
