@@ -10,7 +10,6 @@ int init_serv_sock(char *port)
 		error_handling("socket() error");
 
 	// 서버 만들기 & 종료 후 포트 즉시 재사용 설정
-	serv_sock = socket(PF_INET, SOCK_STREAM, 0);
 	if (setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, &enable_reuse, sizeof(int)) < 0)
 	{
         perror("setsockopt(SO_REUSEADDR) failed");

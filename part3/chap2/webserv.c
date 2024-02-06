@@ -13,7 +13,7 @@ int main(int ac, char **av)
 	// 서버소켓과 kq 등록
 	serv_sock = init_serv_sock(av[1]);
 	kq = init_kqueue(serv_sock);
-	
+
 	// 처음에 서버가 read만을 잡도록 설정.
 	catch_read_kqueue(kq, serv_sock);
 
