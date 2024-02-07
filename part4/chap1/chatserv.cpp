@@ -37,6 +37,7 @@ void Chatserv::init_socket()
 	if ((serv_sock = socket(PF_INET, SOCK_STREAM, 0)) == -1)
 		throw Chatserv::WrongActionException();
 
+	// bind() 문제 해결
 	if (setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, &enable_reuse, sizeof(int)) < 0)
 		throw Chatserv::WrongActionException();
 
@@ -72,7 +73,6 @@ void Chatserv::work_kqueue()
 		if (event_cnt == -1)
 			break ;
 
-		printf("connected\n");
 		for (int i = 0; i < event_cnt; i++)
 		{
 			int fd = cur_events[i].ident;
@@ -97,6 +97,7 @@ void Chatserv::handle_connection()
 	struct kevent clnt_event;
 	EV_SET(&clnt_event, clnt_sock, EVFILT_READ, EV_ADD, 0, 0, NULL);
 
+	printf("connected\n");
 	// clnt_event에 걸리는 것 잡기
 	if (kevent(kq, &clnt_event, 1, NULL, 0, NULL) == -1)
 		throw Chatserv::WrongActionException();
@@ -105,6 +106,7 @@ void Chatserv::handle_connection()
 void Chatserv::handle_response(int clnt_sock)
 {
 	char buffer[BUFFER_SIZE];
+	std::vector<std::string> strVec;
 
 	while (1)
     {
@@ -113,18 +115,28 @@ void Chatserv::handle_response(int clnt_sock)
 			break ;
         buffer[bytesRead] = '\0';
         std::string line(buffer);
-        std::cout << line << std::endl;
+		std::cout << line << " ";
+		strVec.push_back(line);
     }
-	response_data(clnt_sock);
+	std::cout << std::endl;
+	// 파싱
+	// 메소드 체크
+	// 데이터를 보낸다.
+	response_data(clnt_sock, strVec);
 	close(clnt_sock);
 }
 
-void Chatserv::response_data(int clnt_sock)
+void Chatserv::response_data(int clnt_sock, std::vector<std::string> strVec)
 {
 	int clnt_send = dup(clnt_sock);
 	std::string message;
-	message += "1";
 
+	std::string nick = strVec[1].substr(5, 4);
+	std::string user = strVec[2].substr(5, 6);
+	std::string host = "localhost";
+
+	message = ":Welcome to the Internet Relay Network ";
+	message += (nick + "!" + user + "@" + host);
 	send(clnt_send, message.c_str(), message.length(), 0);
 }
 

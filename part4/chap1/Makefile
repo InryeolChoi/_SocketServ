@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 NAME = chatserv
 FILE = chatserv.cpp main.cpp
 

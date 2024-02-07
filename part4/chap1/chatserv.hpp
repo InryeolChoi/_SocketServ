@@ -9,6 +9,7 @@
 #include <sys/event.h>
 #include <netinet/in.h>
 #include <fcntl.h>
+#include <vector>
 
 #define MAX_EVENTS 1024
 #define BUFFER_SIZE 1024
@@ -34,7 +35,7 @@ class Chatserv
 		void work_kqueue();
 		void handle_connection();
 		void handle_response(int clnt_sock);
-		void response_data(int clnt_sock);
+		void response_data(int clnt_sock, std::vector<std::string> strVec);
 
 		class NotNumberException : public std::exception
 		{
