@@ -1,5 +1,5 @@
 # SocketServ
-한국어 버전은 이 링크를 참조해주세요 : [클릭!](./README_ko.md) 
+한국어 버전은 이 링크를 참조해주세요 : [클릭!](./README_ko.md)  
 Please read this page if you can speak English
 
 ## Purpose
